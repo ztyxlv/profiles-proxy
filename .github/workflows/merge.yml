@@ -21,14 +21,14 @@ jobs:
           mkdir -p clash/rules/{source,merged}
 
       - run: |
-          yq -r '.rules[] | .name + " " + (.remote[]? // empty)' clash/rules/manifest.yml \
+          yq -r '.rules[] | .name + " " + (.remote[]? // "")' clash/rules/manifest.yml \
           | xargs -n 2 -P 10 sh -c 'mkdir -p clash/rules/source/$1; curl -L "$2" -o clash/rules/source/$1/${2##*/}' sh
 
       - run: |
           for d in clash/rules/source/*; do
             echo "payload:" > "clash/rules/merged/${d##*/}.yaml"
 
-            yq -r ".rules[] | select(.name == \"${d##*/}\") | .local[]? // empty" clash/rules/manifest.yml \
+            yq -r ".rules[] | select(.name == \"${d##*/}\") | .local[]? // \"\"" clash/rules/manifest.yml \
               | sed 's/^/  - /' \
               >> "clash/rules/merged/${d##*/}.yaml"
 
