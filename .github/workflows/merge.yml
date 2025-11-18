@@ -29,11 +29,13 @@ jobs:
             echo "payload:" > "clash/rules/merged/${d##*/}.yaml"
 
             yq -r ".rules[] | select(.name == \"${d##*/}\") | .local[]? // \"\"" clash/rules/manifest.yml \
+              | grep -v '^$' \
               | sed 's/^/  - /' \
               >> "clash/rules/merged/${d##*/}.yaml"
 
             yq eval-all '.payload[]' "$d"/*.yaml \
               | grep -v '^---$' \
+              | grep -v '^$' \
               | sort -u \
               | sed 's/^/  - /' \
               >> "clash/rules/merged/${d##*/}.yaml"
