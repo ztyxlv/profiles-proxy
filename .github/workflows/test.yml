@@ -26,24 +26,16 @@ jobs:
 
       - run: |
           for d in quantumultx/rules/source/*; do
-            set +e
             output_file="quantumultx/rules/merged/${d##*/}.list"
             > "$output_file"
-          
-            # ---- local debug begin ----
-            local_content=$(yq -r ".rules[] | select(.name == \"${d##*/}\") | .local[]? // \"\"" quantumultx/rules/manifest.yml \
-                             | grep -v '^$')
-          
-            echo "=== LOCAL RULES FOR ${d##*/} ==="
-            echo "$local_content"
-            echo "================================"
-            echo "$local_content" >> "$output_file"
-            # ---- local debug end ----
-          
-            grep -vE '^(#|$)' "$d"/*.list \
+
+            yq -r ".rules[] | select(.name == \"${d##*/}\") | .local[]? // \"\"" quantumultx/rules/manifest.yml \
+              | grep -v '^$' \
+              >> "$output_file"
+
+            grep -hvE '^(#|$)' "$d"/*.list \
               | sort -u \
               >> "$output_file"
-          
           done
 
       - run: |
