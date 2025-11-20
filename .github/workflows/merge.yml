@@ -34,7 +34,6 @@ jobs:
 
             yq eval-all '.payload[]' "$d"/*.yaml \
               | grep -v '^---$' \
-              | grep -v '^$' \
               | sort -u \
               | sed 's/^/  - /' \
               >> "clash/rules/merged/${d##*/}.yaml"
