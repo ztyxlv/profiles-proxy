@@ -12,33 +12,122 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - run: |
+      - name: Install yq
+        run: |
           sudo curl -L https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -o /usr/local/bin/yq
           sudo chmod +x /usr/local/bin/yq
+          echo "=== yq version ==="
+          yq --version
 
-      - run: |
+      - name: Clean and create directories
+        run: |
           rm -rf quantumultx/rules/{source,merged}
           mkdir -p quantumultx/rules/{source,merged}
 
-      - run: |
+      - name: Download remote rule files
+        run: |
+          echo "=== Downloading remote rules ==="
           yq -r '.rules[] | .name + " " + (.remote[]? // "")' quantumultx/rules/manifest.yml \
           | xargs -n 2 -P 10 sh -c 'mkdir -p quantumultx/rules/source/$1; curl -L "$2" -o quantumultx/rules/source/$1/${2##*/}' sh
 
-      - run: |
+      - name: Debug - Check directory structure
+        run: |
+          echo "=== Directory structure ==="
+          ls -la quantumultx/rules/source/
+          echo ""
+          echo "=== First directory contents ==="
+          first_dir=$(ls quantumultx/rules/source/ | head -1)
+          if [ -n "$first_dir" ]; then
+            ls -la "quantumultx/rules/source/$first_dir/"
+            echo ""
+            echo "=== Sample file content ==="
+            first_file=$(ls quantumultx/rules/source/$first_dir/*.list 2>/dev/null | head -1)
+            if [ -n "$first_file" ]; then
+              echo "File: $first_file"
+              head -10 "$first_file"
+            fi
+          fi
+
+      - name: Debug - Test yq command
+        run: |
+          echo "=== Testing yq command ==="
+          echo "Testing with Gaming rule:"
+          yq -r '.rules[] | select(.name == "Gaming") | .local[]? // ""' quantumultx/rules/manifest.yml || echo "yq -r failed, trying yq eval"
+          echo ""
+          echo "Trying with yq eval:"
+          yq eval '.rules[] | select(.name == "Gaming") | .local[]? // ""' quantumultx/rules/manifest.yml || echo "yq eval also failed"
+
+      - name: Merge rule files (with detailed error reporting)
+        run: |
+          set +e  # Don't exit on error
+          
+          echo "=== Starting merge process ==="
           for d in quantumultx/rules/source/*; do
-            output_file="quantumultx/rules/merged/${d##*/}.list"
+            echo "----------------------------------------"
+            echo "Processing directory: $d"
+            
+            if [ ! -d "$d" ]; then
+              echo "Skipping: not a directory"
+              continue
+            fi
+            
+            rule_name="${d##*/}"
+            output_file="quantumultx/rules/merged/${rule_name}.list"
+            echo "Rule name: ${rule_name}"
+            echo "Output file: ${output_file}"
+            
+            # Create empty output file
             > "$output_file"
-
-            yq -r ".rules[] | select(.name == \"${d##*/}\") | .local[]? // \"\"" quantumultx/rules/manifest.yml \
-              >> "$output_file"
-
-            grep -hv '^#' "$d"/*.list \
-              | grep -v '^[[:space:]]*$' \
-              | sort -u \
-              >> "$output_file"
+            echo "Created output file"
+            
+            # Try to get local rules
+            echo "Attempting to get local rules..."
+            yq_result=$(yq -r ".rules[] | select(.name == \"${rule_name}\") | .local[]? // \"\"" quantumultx/rules/manifest.yml 2>&1)
+            yq_exit_code=$?
+            echo "yq exit code: $yq_exit_code"
+            if [ $yq_exit_code -ne 0 ]; then
+              echo "yq error: $yq_result"
+              echo "Trying with yq eval..."
+              yq_result=$(yq eval ".rules[] | select(.name == \"${rule_name}\") | .local[]? // \"\"" quantumultx/rules/manifest.yml 2>&1)
+              yq_exit_code=$?
+              echo "yq eval exit code: $yq_exit_code"
+            fi
+            
+            if [ $yq_exit_code -eq 0 ]; then
+              echo "$yq_result" | grep -v '^$' >> "$output_file" || true
+              echo "Local rules added (if any)"
+            fi
+            
+            # Merge remote rule files
+            echo "Checking for .list files..."
+            file_count=$(ls "$d"/*.list 2>/dev/null | wc -l)
+            echo "Found $file_count .list files"
+            
+            if [ $file_count -gt 0 ]; then
+              echo "Merging remote rules..."
+              grep -hvE '^(#|$)' "$d"/*.list | sort -u >> "$output_file" || true
+              echo "Remote rules merged"
+            fi
+            
+            line_count=$(wc -l < "$output_file")
+            echo "Output file has $line_count lines"
+            echo "✓ Completed: ${rule_name}"
           done
+          
+          echo "========================================="
+          echo "=== Merge process completed ==="
+          
+          # Check if any merged files were created
+          merged_count=$(ls quantumultx/rules/merged/*.list 2>/dev/null | wc -l)
+          echo "Total merged files: $merged_count"
+          
+          if [ $merged_count -eq 0 ]; then
+            echo "ERROR: No merged files were created!"
+            exit 1
+          fi
 
-      - run: |
+      - name: Commit and push changes
+        run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
