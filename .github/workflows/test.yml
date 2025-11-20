@@ -33,7 +33,7 @@ jobs:
               | grep -v '^$' \
               >> "$output_file"
 
-            grep -vE '^(#|$)' "$d"/*.list \
+            grep -hvE '^(#|$)' "$d"/*.list \
               | sort -u \
               >> "$output_file"
           done
