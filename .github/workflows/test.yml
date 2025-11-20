@@ -32,7 +32,8 @@ jobs:
             yq -r ".rules[] | select(.name == \"${d##*/}\") | .local[]? // \"\"" quantumultx/rules/manifest.yml \
               >> "$output_file"
 
-            grep -hvE '^(#|$)' "$d"/*.list \
+            grep -hv '^#' "$d"/*.list \
+              | grep -v '^$' \
               | sort -u \
               >> "$output_file"
           done
