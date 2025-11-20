@@ -28,8 +28,7 @@ jobs:
           for d in clash/rules/source/*; do
             echo "payload:" > "clash/rules/merged/${d##*/}.yaml"
 
-            yq -r ".rules[] | select(.name == \"${d##*/}\") | .local[]? // \"\"" clash/rules/manifest.yml \
-              | grep -v '^$' \
+            yq -r ".rules[] | select(.name == \"${d##*/}\") | .local[]?" clash/rules/manifest.yml \
               | sed 's/^/  - /' \
               >> "clash/rules/merged/${d##*/}.yaml"
 
