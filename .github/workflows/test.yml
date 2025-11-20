@@ -43,4 +43,4 @@ jobs:
           git config user.email github-actions@github.com
           git add .
           git commit -m "Updated on $(TZ=Asia/Shanghai date '+%F at %T')" || true
-          git push
+          
