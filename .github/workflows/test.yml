@@ -33,7 +33,7 @@ jobs:
               >> "$output_file"
 
             grep -hv '^#' "$d"/*.list \
-              | grep -v '^$' \
+              | grep -v '^[[:space:]]*$' \
               | sort -u \
               >> "$output_file"
           done
