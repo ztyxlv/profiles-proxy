@@ -1,0 +1,104 @@
+rules:
+  - name: Gaming
+    remote:
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Game/Game.list"
+
+  - name: Streaming
+    remote:
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Netflix/Netflix.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Disney/Disney.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/AmazonPrimeVideo/AmazonPrimeVideo.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/PrimeVideo/PrimeVideo.list"
+
+  - name: Messaging
+    remote:
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Line/Line.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Whatsapp/Whatsapp.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Telegram/Telegram.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Discord/Discord.list"
+
+  - name: Finance
+    local:
+      - host-suffix, htx.com, Finance
+    remote:
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/PayPal/PayPal.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/OKX/OKX.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Binance/Binance.list"
+
+  - name: Commerce
+    remote:
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Amazon/Amazon.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/eBay/eBay.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Shopify/Shopify.list"
+
+  - name: Intelligence
+    local:
+      - host-suffix, pplx.ai, Intelligence
+      - host-suffix, perplexity.ai, Intelligence
+    remote:
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Claude/Claude.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/OpenAI/OpenAI.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Gemini/Gemini.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Copilot/Copilot.list"
+
+  - name: YouTube
+    remote:
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/YouTube/YouTube.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/YouTubeMusic/YouTubeMusic.list"
+
+  - name: Spotify
+    remote:
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Spotify/Spotify.list"
+
+  - name: GlobalMeida
+    remote:
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/TikTok/TikTok.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Twitter/Twitter.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Reddit/Reddit.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/BiliBiliIntl/BiliBiliIntl.list"
+
+  - name: ChinaMedia
+    remote:
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/DouYin/DouYin.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/KuaiShou/KuaiShou.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/XiaoHongShu/XiaoHongShu.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/BiliBili/BiliBili.list"
+
+  - name: Microsoft
+    remote:
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Bing/Bing.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Microsoft/Microsoft.list"
+
+  - name: GoogleVoice
+    local:
+      - host-suffix, voice.google.com, GoogleVoice
+    remote:
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/GoogleVoice/GoogleVoice.list"
+
+  - name: Google
+    remote:
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/GoogleFCM/GoogleFCM.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Chromecast/Chromecast.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Google/Google.list"
+
+  - name: Apple
+    remote:
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/AppleID/AppleID.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/AppleDev/AppleDev.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/SystemOTA/SystemOTA.list"
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Apple/Apple.list"
+
+  - name: Nike
+    remote:
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Nike/Nike.list"
+
+  - name: Proxy
+    local:
+      - host-suffix, bygcloud.com, Proxy
+      - host-suffix, console.stardream.cloud, Proxy
+    remote:
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/GitHub/GitHub.list"
+
+  - name: Direct
+    remote:
+      - "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/ChinaMax/ChinaMax.list"
