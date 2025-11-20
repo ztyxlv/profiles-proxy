@@ -40,6 +40,27 @@ jobs:
           done
 
       - run: |
+          rm -rf quantumultx/rules/{source,merged}
+          mkdir -p quantumultx/rules/{source,merged}
+
+      - run: |
+          yq -r '.rules[] | .name + " " + (.remote[]? // "")' quantumultx/rules/manifest.yml \
+          | xargs -n 2 -P 10 sh -c 'mkdir -p quantumultx/rules/source/$1; curl -L "$2" -o quantumultx/rules/source/$1/${2##*/}' sh
+
+      - run: |
+          for d in quantumultx/rules/source/*; do
+            output_file="quantumultx/rules/merged/${d##*/}.list"
+            > "$output_file"
+
+            yq -r ".rules[] | select(.name == \"${d##*/}\") | .local[]?" quantumultx/rules/manifest.yml \
+              >> "$output_file"
+
+            grep -hv '^#' "$d"/*.list \
+              | sort -u \
+              >> "$output_file"
+          done
+
+      - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
