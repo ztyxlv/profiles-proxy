@@ -26,6 +26,7 @@ jobs:
 
       - run: |
           for d in quantumultx/rules/source/*; do
+            set +e
             output_file="quantumultx/rules/merged/${d##*/}.list"
             > "$output_file"
           
@@ -42,6 +43,7 @@ jobs:
             grep -vE '^(#|$)' "$d"/*.list \
               | sort -u \
               >> "$output_file"
+          
           done
 
       - run: |
