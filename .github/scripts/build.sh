@@ -85,13 +85,43 @@ init_rule_dirs() {
   esac
 }
 
+# download_rules() {
+#   local manifest="$1"
+#   local source_dir="$2"
+
+#   # shellcheck disable=SC2016
+#   yq -r '.rules[] | select(.ruleset) | .name + " " + (.ruleset[])' "$manifest" \
+#     | xargs -n2 -P10 sh -c 'curl -fsSL "$2" --create-dirs -o "'"$source_dir"'/$1/${2##*/}"' sh
+# }
+
 download_rules() {
   local manifest="$1"
   local source_dir="$2"
 
-  # shellcheck disable=SC2016
-  yq -r '.rules[] | select(.ruleset) | .name + " " + (.ruleset[])' "$manifest" \
-    | xargs -n2 -P10 sh -c 'curl -fsSL "$2" --create-dirs -o "'"$source_dir"'/$1/${2##*/}"' sh
+  yq -r '.rules[] | select(.ruleset) | .name + "\t" + (.ruleset[])' "$manifest" |
+  while IFS=$'\t' read -r name url; do
+
+    dir="$source_dir/$name"
+    mkdir -p "$dir"
+
+    filename="${url##*/}"
+    filepath="$dir/$filename"
+
+    if [ -e "$filepath" ]; then
+      base="${filename%.*}"
+      ext="${filename##*.}"
+      i=1
+
+      while [ -e "$dir/${base}-${i}.${ext}" ]; do
+        i=$((i + 1))
+      done
+
+      filepath="$dir/${base}_${i}.${ext}"
+    fi
+
+    curl -fsSL "$url" -o "$filepath"
+
+  done
 }
 
 extract_rules() {
