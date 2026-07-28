@@ -52,20 +52,6 @@ rules:
     ruleset:
       - https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/telegramip.list
 
-  - name: gh-domain
-    type: domain
-    include:
-      - +.github.com
-      - +.github.io
-      - +.githubusercontent.com
-      - +.githubapp.com
-      - +.githubassets.com
-      - +.githubcopilot.com
-      - +.githubstatus.com
-      - +.ghcr.io
-      - +.npmjs.com
-      - +.npmjs.org
-
   - name: nk-domain
     type: domain
     include:
@@ -84,13 +70,17 @@ rules:
     ruleset:
       - https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/games.list
 
+  - name: vdo-us-domain
+    type: domain
+    ruleset:
+      - https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/appletv.list
+      - https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/primevideo.list
+
   - name: vdo-domain
     type: domain
     ruleset:
       - https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/netflix.list
       - https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/disney.list
-      - https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/appletv.list
-      - https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/primevideo.list
 
   - name: vdo-ipcidr
     type: ipcidr
@@ -115,9 +105,6 @@ rules:
       - +.coinglass.com
       - +.coingecko.com
       - +.tradingview.com
-      - +.whale-alert.io
-      - +.arkm.com
-      - +.treeofalpha.com
 
   - name: crp-classical
     type: classical
@@ -131,7 +118,6 @@ rules:
       - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/domain/paypal.list
     include:
       - +.wise.com
-      - +.transferwise.com
 
   - name: ecm-domain
     type: domain
@@ -201,9 +187,6 @@ rules:
     type: domain
     ruleset:
       - https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/cn-lite.list
-    include:
-      - +.asiassn.com
-      - +.bygcloud.com
 
   - name: china-ipcidr
     type: ipcidr

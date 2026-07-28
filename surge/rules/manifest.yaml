@@ -1,10 +1,8 @@
 rules:
   - name: direct
     ruleset:
-      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/private.list
-    include:
-      - PROCESS-NAME,qbittorrent.exe
-      - PROCESS-NAME,localsend_app.exe
+      - https://ruleset.skk.moe/List/non_ip/lan.conf
+      - https://ruleset.skk.moe/List/ip/lan.conf
 
   - name: yt
     ruleset:
@@ -15,48 +13,13 @@ rules:
       - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/spotify.list
 
   - name: tg
-    include:
-      - DOMAIN,t.me
-      - DOMAIN-SUFFIX,telegram.org
-      - DOMAIN-SUFFIX,telegram.me
-      - DOMAIN-SUFFIX,telegra.ph
-      - DOMAIN-SUFFIX,graph.org
-      - DOMAIN-SUFFIX,cdn-telegram.org
-      - DOMAIN-SUFFIX,telegram-cdn.org
-      - DOMAIN-SUFFIX,tdesktop.com
-      - DOMAIN-SUFFIX,tg.dev
-      - IP-CIDR,149.154.160.0/20,no-resolve
-      - IP-CIDR,185.76.151.0/24,no-resolve
-      - IP-CIDR,91.105.192.0/23,no-resolve
-      - IP-CIDR,91.108.16.0/21,no-resolve
-      - IP-CIDR,91.108.4.0/22,no-resolve
-      - IP-CIDR,91.108.56.0/22,no-resolve
-      - IP-CIDR,91.108.8.0/21,no-resolve
-      - IP-CIDR,95.161.64.0/20,no-resolve
-      - IP-CIDR6,2001:67c:4e8::/48,no-resolve
-      - IP-CIDR6,2001:b28:f23c::/47,no-resolve
-      - IP-CIDR6,2001:b28:f23f::/48,no-resolve
-      - IP-CIDR6,2a0a:f280::/32,no-resolve
-
-  - name: gh
-    include:
-      - DOMAIN-SUFFIX,github.com
-      - DOMAIN-SUFFIX,github.io
-      - DOMAIN-SUFFIX,githubusercontent.com
-      - DOMAIN-SUFFIX,githubapp.com
-      - DOMAIN-SUFFIX,githubassets.com
-      - DOMAIN-SUFFIX,githubcopilot.com
-      - DOMAIN-SUFFIX,githubstatus.com
-      - DOMAIN-SUFFIX,ghcr.io
-      - DOMAIN-SUFFIX,npmjs.com
-      - DOMAIN-SUFFIX,npmjs.org
+    ruleset:
+      - https://ruleset.skk.moe/List/non_ip/telegram.conf
+      - https://ruleset.skk.moe/List/ip/telegram.conf
 
   - name: nk
-    include:
-      - DOMAIN-SUFFIX,nike.com
-      - DOMAIN-SUFFIX,nikecdn.com
-      - DOMAIN-SUFFIX,nikecloud.com
-      - DOMAIN-SUFFIX,swoosh.com
+    ruleset:
+      - https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Nike/Nike.list
 
   - name: gam-cn
     ruleset:
@@ -66,47 +29,37 @@ rules:
     ruleset:
       - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/games.list
 
+  - name: vdo-us
+    ruleset:
+      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/apple-tv.list
+      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/primevideo.list
+
   - name: vdo
     ruleset:
       - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/netflix.list
       - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/disney.list
-      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/apple-tv.list
-      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/primevideo.list
 
   - name: ais-us
-    include:
-      - DOMAIN,guzzoni.apple.com
-      - DOMAIN,gspe1-ssl.ls.apple.com
-      - DOMAIN,apple-relay.mask.apple-dns.net
-      - DOMAIN,apple-relay.fastly-edge.com
-      - DOMAIN,apple-relay.apple.com
-      - DOMAIN,apple-relay.cloudflare.com
-      - DOMAIN,cp4.cloudflare.com
-      - DOMAIN-SUFFIX,smoot.apple.com
+    ruleset:
+      - https://ruleset.skk.moe/List/non_ip/apple_intelligence.conf
 
   - name: ais
     ruleset:
-      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/ai.list
+      - https://ruleset.skk.moe/List/non_ip/ai.conf
 
   - name: crp
+    ruleset:
+      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/crypto.list
     include:
       - DOMAIN-SUFFIX,coinglass.com
       - DOMAIN-SUFFIX,coingecko.com
       - DOMAIN-SUFFIX,tradingview.com
-      - DOMAIN-SUFFIX,whale-alert.io
-      - DOMAIN-SUFFIX,arkm.com
-      - DOMAIN-SUFFIX,treeofalpha.com
-      - PROCESS-NAME,Binance.exe
-      - PROCESS-NAME,OKX.exe
-    ruleset:
-      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/crypto.list
 
   - name: fin
     ruleset:
       - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/paypal.list
     include:
       - DOMAIN-SUFFIX,wise.com
-      - DOMAIN-SUFFIX,transferwise.com
 
   - name: ecm
     ruleset:
@@ -121,21 +74,25 @@ rules:
       - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/googlefcm.list
       - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/google.list
 
+  - name: msf-ex
+    ruleset:
+      - https://ruleset.skk.moe/List/non_ip/microsoft_cdn.conf
+
   - name: msf-cn
     ruleset:
       - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/microsoft-cn.list
 
   - name: msf
     ruleset:
-      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/microsoft.list
+      - https://ruleset.skk.moe/List/non_ip/microsoft.conf
 
   - name: apl-ex
     ruleset:
-      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/apple-proxy.list
+      - https://ruleset.skk.moe/List/domainset/apple_cdn.conf
 
   - name: apl-cn
     ruleset:
-      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/apple-cn.list
+      - https://ruleset.skk.moe/List/non_ip/apple_cn.conf
 
   - name: apl
     ruleset:
@@ -144,8 +101,7 @@ rules:
 
   - name: china
     ruleset:
-      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/cn.list
-      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/cncidr.list
-    include:
-      - DOMAIN-SUFFIX,asiassn.com
-      - DOMAIN-SUFFIX,bygcloud.com
+      - https://ruleset.skk.moe/List/non_ip/domestic.conf
+      - https://ruleset.skk.moe/List/ip/domestic.conf
+      - https://ruleset.skk.moe/List/ip/china_ip.conf
+      - https://ruleset.skk.moe/List/ip/china_ip_ipv6.conf

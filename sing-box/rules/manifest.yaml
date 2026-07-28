@@ -24,31 +24,21 @@ rules:
     ruleset:
       - https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/telegramip.json
     include:
-      - domain:
+      - domain_suffix:
           - t.me
-      - domain_suffix:
-          - telegram.org
-          - telegram.me
-          - telegra.ph
-          - graph.org
-          - cdn-telegram.org
-          - telegram-cdn.org
-          - tdesktop.com
+          - tx.me
           - tg.dev
-
-  - name: gh
-    include:
-      - domain_suffix:
-          - github.com
-          - github.io
-          - githubusercontent.com
-          - githubapp.com
-          - githubassets.com
-          - githubcopilot.com
-          - githubstatus.com
-          - ghcr.io
-          - npmjs.com
-          - npmjs.org
+          - legra.ph
+          - graph.org
+          - telega.one
+          - telegra.ph
+          - telesco.pe
+          - telegram.me
+          - tdesktop.com
+          - telegram.dog
+          - telegram.org
+          - telegram.space
+          - cdn-telegram.org
 
   - name: nk
     include:
@@ -66,13 +56,16 @@ rules:
     ruleset:
       - https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/games.json
 
+  - name: vdo-us
+    ruleset:
+      - https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/appletv.json
+      - https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/primevideo.json
+
   - name: vdo
     ruleset:
       - https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/netflix.json
       - https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/netflixip.json
       - https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/disney.json
-      - https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/appletv.json
-      - https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/primevideo.json
 
   - name: ais-us
     include:
@@ -93,30 +86,26 @@ rules:
 
   - name: crp
     ruleset:
-      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version4/crypto.json
+      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/crypto.json
     include:
       - domain_suffix:
           - coinglass.com
           - coingecko.com
           - tradingview.com
-          - whale-alert.io
-          - arkm.com
-          - treeofalpha.com
       - process_name:
           - Binance.exe
           - OKX.exe
 
   - name: fin
     ruleset:
-      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version4/paypal.json
+      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/paypal.json
     include:
       - domain_suffix:
           - wise.com
-          - transferwise.com
 
   - name: ecm
     ruleset:
-      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version4/ecommerce.json
+      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/ecommerce.json
 
   - name: ggl-us
     include:
@@ -129,8 +118,8 @@ rules:
 
   - name: ggl
     ruleset:
-      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version4/googlefcm.json
-      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version4/google.json
+      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/googlefcm.json
+      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/google.json
 
   - name: msf-cn
     ruleset:
@@ -138,11 +127,11 @@ rules:
 
   - name: msf
     ruleset:
-      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version4/microsoft.json
+      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/microsoft.json
 
   - name: apl-ex
     ruleset:
-      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version4/apple-proxy.json
+      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/apple-proxy.json
 
   - name: apl-cn
     ruleset:
@@ -150,14 +139,10 @@ rules:
 
   - name: apl
     ruleset:
-      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version4/apns.json
-      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version4/apple.json
+      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/apns.json
+      - https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/apple.json
 
   - name: china
     ruleset:
       - https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/cn-lite.json
       - https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/cnip.json
-    include:
-      - domain_suffix:
-          - asiassn.com
-          - bygcloud.com

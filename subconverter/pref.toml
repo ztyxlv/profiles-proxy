@@ -20,7 +20,7 @@ prepend_insert_url = true
 exclude_remarks = ["(Traffic|Date|GB \\||G \\||Premium)"]
 
 # Only include nodes which remarks match the following patterns. Supports regular expression.
-#include_remarks = ["V3.*港"]
+include_remarks = ["(Hong Kong|香港|Taiwan|台湾|Japan|日本|Korea|韩国|Singapore|新加坡|Australia|澳大利亚|United States|美国|Canada|加拿大|Germany|德国|France|法国|United Kingdom|英国)"]
 
 # Enable script support for filtering nodes
 enable_filter = false

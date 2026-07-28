@@ -3,7 +3,7 @@ function compare(a, b) {
   if (!compare.cache) {
 
     var pinnedCountryOrder = [
-      "HK", "TW", "JP", "SG", "US"
+      "HK", "TW", "JP", "KR", "SG", "US"
     ];
 
     var defaultCountryOrder = [
