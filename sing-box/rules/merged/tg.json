@@ -16,18 +16,21 @@
         "91.108.8.0/21",
         "95.161.64.0/20"
       ],
-      "domain": [
-        "t.me"
-      ],
       "domain_suffix": [
         "cdn-telegram.org",
         "graph.org",
+        "legra.ph",
+        "t.me",
         "tdesktop.com",
+        "telega.one",
         "telegra.ph",
-        "telegram-cdn.org",
+        "telegram.dog",
         "telegram.me",
         "telegram.org",
-        "tg.dev"
+        "telegram.space",
+        "telesco.pe",
+        "tg.dev",
+        "tx.me"
       ]
     }
   ]
