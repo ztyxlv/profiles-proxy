@@ -31,6 +31,6 @@ def aggregate_rules:
 ($ruleset[0] | map(exclude_rules($exclude))) as $filtered
 | ($filtered + $include) as $all
 | {
-    version: 5,
+    version: 4,
     rules: (if ($all | length) == 0 then [] else [$all | aggregate_rules] end)
   }
