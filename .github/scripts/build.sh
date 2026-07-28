@@ -179,7 +179,6 @@ sync_rules() {
   git config user.email "github-actions[bot]@users.noreply.github.com"
 
   git add "$path"
-  git add -f "$path/source"
 
   if ! git diff --cached --quiet; then
     git commit -m "Updated on $(TZ=Asia/Shanghai date '+%F at %T')"
