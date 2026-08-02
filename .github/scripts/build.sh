@@ -57,7 +57,7 @@ install_sing-box() {
 
 install_tools() {
   local target="$1"
-  local client="$2"
+  local client="${2:-}"
 
   install_jq
   install_yq
