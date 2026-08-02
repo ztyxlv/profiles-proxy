@@ -168,6 +168,10 @@ def write_text_rules(rules: list[str], file: Path):
     for rule in rules:
       f.write(rule + "\n")
 
+class IndentDumper(yaml.SafeDumper):
+  def increase_indent(self, flow=False, indentless=False):
+    return super().increase_indent(flow=False, indentless=False)
+
 def write_yaml_rules(rules: list[str], file: Path):
 
   data = {
@@ -175,10 +179,10 @@ def write_yaml_rules(rules: list[str], file: Path):
   }
 
   with file.open("w", encoding="utf-8") as f:
-
-    yaml.safe_dump(
+    yaml.dump(
       data,
       f,
+      Dumper=IndentDumper,
       allow_unicode=True,
       sort_keys=False,
       indent=2
