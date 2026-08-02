@@ -9,7 +9,7 @@ icons:
 
   - name: ais
     category: services
-    url: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/openai-light.svg
+    url: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/claude-ai.svg
 
   - name: crp
     category: services
