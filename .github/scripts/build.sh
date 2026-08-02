@@ -89,7 +89,7 @@ reset_icons_dir() {
 reset_rules_dir() {
   local client="$1"
 
-  rm -rf rules/"$client"
+  rm -rf rules/"$client"/{source,merged,compiled}
 
   case "$client" in
     mihomo|sing-box)
@@ -107,7 +107,7 @@ download_icons() {
 
   # shellcheck disable=SC2016
   yq -r '.icons[] | select(.url) | [.name, .category, .url] | @tsv' "$manifest_f" \
-    | xargs -n3 -P10 sh -c 'curl -fsSL "$3" --create-dirs -o "$0/$2/$1.svg"' "$svg_dir"
+    | xargs -n3 -P10 sh -c 'curl -fsSL "$3" --create-dirs -o "'"$svg_dir"'/$2/$1.svg"' _
 }
 
 download_rules() {
@@ -116,7 +116,7 @@ download_rules() {
 
   # shellcheck disable=SC2016
   yq -r '.rules[] | select(.rulesets) | .name as $group | .rulesets[] | [$group, .name, .url] | @tsv' "$manifest_f" \
-    | xargs -n3 -P10 sh -c 'curl -fsSL "$3" --create-dirs -o "$0/$1/$2.${3##*.}" "$source_dir"'
+    | xargs -n3 -P10 sh -c 'curl -fsSL "$3" --create-dirs -o "'"$source_dir"'/$1/$2.${3##*.}"' _
 }
 
 convert_icons() {
@@ -126,7 +126,7 @@ convert_icons() {
 
   # shellcheck disable=SC2016
   yq -r '.icons[] | select(.url) | [.name, .category] | @tsv' "$manifest_f" \
-    | xargs -n2 -P10 sh -c 'name="$1" category="$2" resvg -w 64 "$0/$category/$name.svg" "$3/$category/$name.png"' "$svg_dir" "$png_dir"
+    | xargs -n2 -P10 sh -c 'resvg -w 64 "'"$svg_dir"'/$2/$1.svg" "'"$png_dir"'/$2/$1.png"' _
 }
 
 compile_mihomo_rules() {
