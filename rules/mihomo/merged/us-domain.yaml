@@ -1,5 +1,5 @@
 payload:
-- +.nike.com
-- +.nikecdn.com
-- +.swoo.sh
-- +.swoosh.com
+  - +.nike.com
+  - +.nikecdn.com
+  - +.swoo.sh
+  - +.swoosh.com
