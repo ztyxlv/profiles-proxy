@@ -82,7 +82,7 @@ install_tools() {
 }
 
 reset_icons_dir() {
-  rm -rf icons
+  rm -rf icons/{svg,png}
   mkdir -p icons/{svg,png}/{services,policies,flags}
 }
 
