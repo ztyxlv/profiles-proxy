@@ -1,0 +1,23 @@
+name: Update Icons
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - icons/manifest.yaml
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - run: |
+          source .github/scripts/build.sh
+
+          build_icons
+          sync_changes icons

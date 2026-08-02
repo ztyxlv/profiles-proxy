@@ -1,0 +1,28 @@
+name: Update Rules
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+  push:
+    paths:
+      - rules/*/manifest.yaml
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: |
+          source .github/scripts/build.sh
+
+          for client in mihomo sing-box surge; do
+            build_rules "$client"
+          done
+
+          sync_changes rules

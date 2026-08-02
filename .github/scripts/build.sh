@@ -1,178 +1,212 @@
 #!/usr/bin/env bash
+
 set -euo pipefail
 
-install_yq() {
-  sudo curl -fsSL \
-    https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 \
-    -o /usr/local/bin/yq
-  sudo chmod +x /usr/local/bin/yq
-}
-
 install_jq() {
-  sudo curl -fsSL \
-    https://github.com/jqlang/jq/releases/latest/download/jq-linux-amd64 \
-    -o /usr/local/bin/jq
+  command -v jq &>/dev/null && return
+
+  sudo curl -fsSL https://github.com/jqlang/jq/releases/latest/download/jq-linux-amd64 -o /usr/local/bin/jq
   sudo chmod +x /usr/local/bin/jq
 }
 
-install_mihomo() {
+install_yq() {
+  command -v yq &>/dev/null && return
+
+  sudo curl -fsSL https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -o /usr/local/bin/yq
+  sudo chmod +x /usr/local/bin/yq
+}
+
+install_resvg() {
+  command -v resvg &>/dev/null && return
+
   local url
 
-  url=$(curl -fsSL https://api.github.com/repos/MetaCubeX/mihomo/releases/latest \
-    | jq -r '.assets[] | select(.name | test("mihomo-linux-amd64-v3-v.*\\.gz$")) | .browser_download_url')
+  url=$(curl -fsSL https://api.github.com/repos/linebender/resvg/releases/latest \
+    | jq -r '.assets[] | select(.name | test("resvg-linux-x86_64.tar.gz")) | .browser_download_url')
 
   curl -fsSL "$url" \
-    | gunzip -c > /tmp/mihomo
-
-  sudo mv /tmp/mihomo /usr/local/bin/mihomo
-  sudo chmod +x /usr/local/bin/mihomo
+    | sudo tar -xz -C /usr/local/bin
 }
 
-install_singbox() {
-  local tmp url
+install_mihomo() {
+  command -v mihomo &>/dev/null && return
 
-  tmp=$(mktemp -d)
+  local url
 
-  url=$(curl -fsSL https://api.github.com/repos/SagerNet/sing-box/releases/latest \
-    | jq -r '.assets[] | select(.name | test("sing-box-[0-9.]+-linux-amd64\\.tar\\.gz$")) | .browser_download_url')
+  url=$(curl -fsSL https://api.github.com/repos/MetaCubeX/mihomo/releases \
+    | jq -r '.[] | select(.prerelease == true) | .assets[] | select(.name | test("mihomo-linux-amd64-v3-alpha-.*\\.gz")) | .browser_download_url' \
+    | head -n1)
 
   curl -fsSL "$url" \
-    | tar -xz -C "$tmp"
-
-  sudo mv "$tmp"/sing-box*/sing-box /usr/local/bin/sing-box
-  sudo chmod +x /usr/local/bin/sing-box
-
-  rm -rf "$tmp"
+    | gunzip -c \
+    | sudo install -m 755 /dev/stdin /usr/local/bin/mihomo
 }
 
-install_deps() {
-  local client="$1"
+install_sing-box() {
+  command -v sing-box &>/dev/null && return
 
+  local url
+
+  url=$(curl -fsSL https://api.github.com/repos/SagerNet/sing-box/releases \
+    | jq -r '.[] | select(.prerelease == true) | .assets[] | select(.name | test("sing-box-.*-alpha.*-linux-amd64\\.tar\\.gz")) | .browser_download_url' \
+    | head -n1)
+
+  curl -fsSL "$url" \
+    | sudo tar -xz -C /usr/local/bin --strip-components=1 --wildcards "*/sing-box"
+}
+
+install_tools() {
+  local target="$1"
+  local client="$2"
+
+  install_jq
   install_yq
 
-  case "$client" in
-    mihomo)
-      install_jq
-      install_mihomo
+  case "$target" in
+    icons)
+      install_resvg
       ;;
-    sing-box)
-      install_jq
-      install_singbox
-      ;;
-    surge)
-      ;;
-    *)
-      exit 1
+    rules)
+      case "$client" in
+        mihomo)
+          install_mihomo
+          ;;
+        sing-box)
+          install_sing-box
+          ;;
+        surge)
+          ;;
+      esac
       ;;
   esac
 }
 
-init_rule_dirs() {
+reset_icons_dir() {
+  rm -rf icons
+  mkdir -p icons/{svg,png}/{services,policies,flags}
+}
+
+reset_rules_dir() {
   local client="$1"
+
+  rm -rf rules/"$client"
 
   case "$client" in
     mihomo|sing-box)
-      rm -rf "$client/rules"/{source,merged,compiled}
-      mkdir -p "$client/rules"/{source,merged,compiled}
+      mkdir -p rules/"$client"/{source,merged,compiled}
       ;;
     surge)
-      rm -rf "$client/rules"/{source,merged}
-      mkdir -p "$client/rules"/{source,merged}
+      mkdir -p rules/"$client"/{source,merged}
       ;;
-    *)
-      exit 1
+  esac  
+}
+
+download_icons() {
+  local manifest_f="$1"
+  local svg_dir="$2"
+
+  # shellcheck disable=SC2016
+  yq -r '.icons[] | select(.url) | [.name, .category, .url] | @tsv' "$manifest_f" \
+    | xargs -n3 -P10 sh -c 'curl -fsSL "$3" --create-dirs -o "$4/$2/$1.svg"' _ "$svg_dir"
+}
+
+download_rules() {
+  local manifest_f="$1"
+  local source_dir="$2"
+
+  # shellcheck disable=SC2016
+  yq -r '.rules[] | select(.rulesets) | .name as $group | .rulesets[] | [$group, .name, .url] | @tsv' "$manifest_f" \
+    | xargs -n3 -P10 sh -c 'curl -fsSL "$3" --create-dirs -o "$4/$1/$2.${3##*.}"' _ "$source_dir"
+}
+
+convert_icons() {
+  local manifest_f="$1"
+  local svg_dir="$2"
+  local png_dir="$3"
+
+  # shellcheck disable=SC2016
+  yq -r '.icons[] | select(.url) | [.name, .category] | @tsv' "$manifest_f" \
+    | xargs -n2 -P10 sh -c 'resvg -w 64 "$3/$2/$1.svg" "$4/$2/$1.png"' _ "$svg_dir" "$png_dir"
+}
+
+compile_mihomo_rules() {
+  local manifest_f="$1"
+  local merged_dir="$2"
+  local compiled_dir="$3"
+
+  while IFS=$'\t' read -r name type; do
+    local merged_f="$merged_dir/$name.yaml"
+    local compiled_f="$compiled_dir/$name.mrs"
+
+    case "$type" in
+      domain|ipcidr)
+        [[ -f "$merged_f" ]] || continue
+        mihomo convert-ruleset "$type" yaml "$merged_f" "$compiled_f"
+        ;;
+      classical)
+        ;;
+    esac
+  done < <(yq -r '.rules[] | [.name, .type] | @tsv' "$manifest_f")
+}
+
+compile_singbox_rules() {
+  local manifest_f="$1"
+  local merged_dir="$2"
+  local compiled_dir="$3"
+
+  while IFS=$'\t' read -r name; do
+    local merged_f="$merged_dir/$name.json"
+    local compiled_f="$compiled_dir/$name.srs"
+
+    [[ -f "$merged_f" ]] || continue
+    sing-box rule-set compile "$merged_f" -o "$compiled_f"
+  done < <(yq -r '.rules[].name' "$manifest_f")
+}
+
+compile_rules() {
+  local client="$1"
+  local manifest_f="$2"
+  local merged_dir="$3"
+  local compiled_dir="$4"
+
+  case "$client" in
+    mihomo)
+      compile_mihomo_rules "$manifest_f" "$merged_dir" "$compiled_dir"
+      ;;
+    sing-box)
+      compile_singbox_rules "$manifest_f" "$merged_dir" "$compiled_dir"
+      ;;
+    surge)
       ;;
   esac
 }
 
-# download_rules() {
-#   local manifest="$1"
-#   local source_dir="$2"
+build_icons() {
+  local manifest_f="icons/manifest.yaml"
+  local svg_dir="icons/svg"
+  local png_dir="icons/png"
 
-#   # shellcheck disable=SC2016
-#   yq -r '.rules[] | select(.ruleset) | .name + " " + (.ruleset[])' "$manifest" \
-#     | xargs -n2 -P10 sh -c 'curl -fsSL "$2" --create-dirs -o "'"$source_dir"'/$1/${2##*/}"' sh
-# }
-
-download_rules() {
-  local manifest="$1"
-  local source_dir="$2"
-
-  yq -r '.rules[] | select(.ruleset) | .name + "\t" + (.ruleset[])' "$manifest" |
-  while IFS=$'\t' read -r name url; do
-
-    dir="$source_dir/$name"
-    mkdir -p "$dir"
-
-    filename="${url##*/}"
-    filepath="$dir/$filename"
-
-    if [ -e "$filepath" ]; then
-      base="${filename%.*}"
-      ext="${filename##*.}"
-      i=1
-
-      while [ -e "$dir/${base}-${i}.${ext}" ]; do
-        i=$((i + 1))
-      done
-
-      filepath="$dir/${base}_${i}.${ext}"
-    fi
-
-    curl -fsSL "$url" -o "$filepath"
-
-  done
+  install_tools icons
+  reset_icons_dir
+  download_icons "$manifest_f" "$svg_dir"
+  convert_icons "$manifest_f" "$svg_dir" "$png_dir"
 }
 
-extract_rules() {
-  local rule="$1"
-  local file="$2"
+build_rules() {
+  local client="$1"
+  local manifest_f="rules/$client/manifest.yaml"
+  local source_dir="rules/$client/source"
+  local merged_dir="rules/$client/merged"
+  local compiled_dir="rules/$client/compiled"
 
-  if compgen -G "$rule/*.list" > /dev/null; then
-    grep -hvE '^[[:space:]]*(#|$)' "$rule"/*.list >> "$file"
-  fi
-
-  if compgen -G "$rule/*.conf" > /dev/null; then
-    grep -hvE '^[[:space:]]*(#|$)' "$rule"/*.conf >> "$file"
-  fi
-
-  if compgen -G "$rule/*.yaml" > /dev/null; then
-    yq eval-all '.payload[]' "$rule"/*.yaml >> "$file"
-  fi
+  install_tools rules "$client"
+  reset_rules_dir "$client"
+  download_rules "$manifest_f" "$source_dir"
+  python3 .github/scripts/process_rules.py "$client" "$manifest_f" "$source_dir" "$merged_dir"
+  compile_rules "$client" "$manifest_f" "$merged_dir" "$compiled_dir"
 }
 
-exclude_rules() {
-  local manifest="$1"
-  local name="$2"
-  local file="$3"
-
-  local temp
-  temp=$(mktemp)
-
-  local exclude
-  exclude=$(yq -r ".rules[] | select(.name == \"$name\") | .exclude[]?" "$manifest")
-
-  if [ -n "$exclude" ]; then
-    printf '%s\n' "$exclude" | grep -vxFf - "$file" > "$temp"
-    mv "$temp" "$file"
-  fi
-}
-
-include_rules() {
-  local manifest="$1"
-  local name="$2"
-  local file="$3"
-
-  yq -r ".rules[] | select(.name == \"$name\") | .include[]?" "$manifest" >> "$file"
-}
-
-sort_rules() {
-  local file="$1"
-
-  LC_ALL=C sort -u "$file" -o "$file"
-}
-
-sync_rules() {
+sync_changes() {
   local path="$1"
 
   git config user.name "github-actions[bot]"
@@ -186,3 +220,19 @@ sync_rules() {
     git push
   fi
 }
+
+main() {
+  local target="$1"
+  local client="${2:-}"
+
+  case "$target" in
+    icons)
+      build_icons
+      ;;
+    rules)
+      build_rules "$client"
+      ;;
+  esac
+}
+
+main "$@"
