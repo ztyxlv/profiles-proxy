@@ -1,0 +1,3 @@
+payload:
+- PROCESS-NAME,localsend_app.exe
+- PROCESS-NAME,qbittorrent.exe
