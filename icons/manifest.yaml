@@ -1,0 +1,76 @@
+icons:
+  - name: gam
+    category: services
+    url: https://cdn.worldvectorlogo.com/logos/steam-icon-logo.svg
+
+  - name: vdo
+    category: services
+    url: https://cdn.worldvectorlogo.com/logos/netflix-logo-icon.svg
+
+  - name: ais
+    category: services
+    url: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/openai-light.svg
+
+  - name: crp
+    category: services
+    url: https://cdn.worldvectorlogo.com/logos/binance-logo.svg
+
+  - name: fnc
+    category: services
+    url: https://cdn.worldvectorlogo.com/logos/paypal-4.svg
+
+  - name: ecm
+    category: services
+    url: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/amazon-light.svg
+
+  - name: ggl
+    category: services
+    url: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/google.svg
+
+  - name: msf
+    category: services
+    url: https://cdn.worldvectorlogo.com/logos/microsoft-5.svg
+
+  - name: apl
+    category: services
+    url: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/apple-light.svg
+
+  - name: prx
+    category: policies
+    url: https://uxwing.com/wp-content/themes/uxwing/download/location-travel-map/earth-icon.svg
+
+  - name: drc
+    category: policies
+    url: https://uxwing.com/wp-content/themes/uxwing/download/computers-mobile-hardware/connected-plug-icon.svg
+
+  - name: rjc
+    category: policies
+    url: https://uxwing.com/wp-content/themes/uxwing/download/computers-mobile-hardware/disconnect-plug-icon.svg
+
+  - name: yt
+    category: services
+    url: https://cdn.worldvectorlogo.com/logos/youtube-icon-8.svg
+
+  - name: tg
+    category: services
+    url: https://cdn.worldvectorlogo.com/logos/telegram-2019-logo.svg
+
+  - name: hk
+    category: flags
+    url: https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/4x3/hk.svg
+
+  - name: tw
+    category: flags
+    url: https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/4x3/tw.svg
+
+  - name: jp
+    category: flags
+    url: https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/4x3/jp.svg
+
+  - name: sg
+    category: flags
+    url: https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/4x3/sg.svg
+
+  - name: us
+    category: flags
+    url: https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/4x3/us.svg

@@ -1,0 +1,154 @@
+global:
+  excludes:
+    domain:
+      - "*"
+      - 7h15_ru1353t_1s_m4d3_by_5ukk4w.skk.moe
+    domain_suffix:
+      - 7h15_ru1353t_1s_m4d3_by_5ukk4w.skk.moe
+
+rules:
+  - name: real-ip
+    rulesets:
+      - name: quixoticHeart-fake-ip-filter
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/fake-ip-filter.json
+
+  - name: direct
+    rulesets:
+      - name: quixoticHeart-private
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/private.json
+    includes:
+      process_name:
+        - localsend_app.exe
+        - qbittorrent.exe
+
+  - name: yt
+    rulesets:
+      - name: quixoticheart-youtube
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/youtube.json
+
+  - name: sp
+    rulesets:
+      - name: quixoticheart-spotify
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/spotify.json
+
+  - name: tg
+    rulesets:
+      - name: sukka-telegram
+        url: https://ruleset.skk.moe/sing-box/non_ip/telegram.json
+
+      - name: sukka-telegram-ip
+        url: https://ruleset.skk.moe/sing-box/ip/telegram.json
+
+  - name: gam-cn
+    rulesets:
+      - name: sukka-game-download
+        url: https://ruleset.skk.moe/sing-box/domainset/game-download.json
+
+      - name: dustinwin-games-cn
+        url: https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/games-cn.json
+
+  - name: gam
+    rulesets:
+      - name: dustinwin-games
+        url: https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/games.json
+
+  - name: vdo-us
+    rulesets:
+      - name: quixoticheart-apple-tv
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/apple-tv.json
+
+  - name: vdo
+    rulesets:
+      - name: quixoticheart-disney
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/disney.json
+
+      - name: quixoticheart-netflix
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/netflix.json
+
+  - name: ais-us
+    rulesets:
+      - name: sukka-apple-intelligence
+        url: https://ruleset.skk.moe/sing-box/non_ip/apple_intelligence.json
+
+  - name: ais
+    rulesets:
+      - name: quixoticheart-ai
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/ai.json
+
+  - name: crp
+    rulesets:
+      - name: quixoticheart-crypto
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/crypto.json
+    includes:
+      domain_suffix:
+        - arkm.com
+        - cg-capi.com
+        - cg-mapi.com
+        - coinglass.io
+        - treeofalpha.com
+        - whale-alert.io
+
+  - name: fnc
+    rulesets:
+      - name: quixoticheart-paypal
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/paypal.json
+    includes:
+      domain_suffix:
+        - wise.com
+
+  - name: ecm
+    rulesets:
+      - name: quixoticheart-ecommerce
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/ecommerce.json
+
+  - name: ggl-us
+    rules:
+      domain:
+        - voice.google.com
+
+  - name: ggl
+    rulesets:
+      - name: quixoticheart-googlefcm
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/googlefcm.json
+
+      - name: quixoticheart-google
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/google.json
+
+  - name: msf-cn
+    rulesets:
+      - name: sukka-microsoft-cdn
+        url: https://ruleset.skk.moe/sing-box/non_ip/microsoft_cdn.json
+
+      - name: quixoticheart-microsoft-cn
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/microsoft-cn.json
+
+  - name: msf
+    rulesets:
+      - name: quixoticheart-microsoft
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/microsoft.json
+
+  - name: apl-cn
+    rulesets:
+      - name: quixoticheart-apple-cn
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/apple-cn.json
+
+  - name: apl
+    rulesets:
+      - name: quixoticheart-apple
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/apple.json
+
+  - name: us
+    rules:
+      domain_suffix:
+        - nike.com
+        - nikecdn.com
+        - swoo.sh
+        - swoosh.com
+
+  - name: cn
+    rulesets:
+      - name: dustinwin-cn
+        url: https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/cn.json
+
+      - name: dustinwin-cn-ip
+        url: https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/cnip.json

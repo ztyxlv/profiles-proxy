@@ -1,0 +1,225 @@
+global:
+  excludes:
+    domain:
+      - "*"
+      - 7h15_ru1353t_1s_m4d3_by_5ukk4w.skk.moe
+    classical:
+      - DOMAIN,7h15_ru1353t_1s_m4d3_by_5ukk4w.skk.moe
+
+rules:
+  - name: real-ip-domain
+    type: domain
+    rulesets:
+      - name: quixoticheart-fake-ip-filter
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/domain/fake-ip-filter.list
+
+  - name: direct-domain
+    type: domain
+    rulesets:
+      - name: quixoticheart-private
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/domain/private.list
+
+  - name: direct-ipcidr
+    type: ipcidr
+    rulesets:
+      - name: quixoticheart-private-ip
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/ipcidr/private.list
+
+  - name: direct-classical
+    type: classical
+    rules:
+      - PROCESS-NAME,localsend_app.exe
+      - PROCESS-NAME,qbittorrent.exe
+
+  - name: yt-domain
+    type: domain
+    rulesets:
+      - name: quixoticheart-youtube
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/domain/youtube.list
+
+  - name: yt-ipcidr
+    type: ipcidr
+    rulesets:
+      - name: quixoticheart-youtube-ip
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/ipcidr/youtube.list
+
+  - name: sp-domain
+    type: domain
+    rulesets:
+      - name: quixoticheart-spotify
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/domain/spotify.list
+
+  - name: sp-ipcidr
+    type: ipcidr
+    rulesets:
+      - name: quixoticheart-spotify-ip
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/ipcidr/spotify.list
+
+  - name: tg-classical
+    type: classical
+    rulesets:
+      - name: sukka-telegram
+        url: https://ruleset.skk.moe/Clash/non_ip/telegram.txt
+
+      - name: sukka-telegram-ip
+        url: https://ruleset.skk.moe/Clash/ip/telegram.txt
+
+  - name: gam-cn-domain
+    type: domain
+    rulesets:
+      - name: sukka-game-download
+        url: https://ruleset.skk.moe/Clash/domainset/game-download.txt
+
+      - name: dustinwin-games-cn
+        url: https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/games-cn.list
+
+  - name: gam-domain
+    type: domain
+    rulesets:
+      - name: dustinwin-games
+        url: https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/games.list
+
+  - name: vdo-us-domain
+    type: domain
+    rulesets:
+      - name: quixoticheart-apple-tv
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/domain/apple-tv.list
+
+  - name: vdo-domain
+    type: domain
+    rulesets:
+      - name: quixoticheart-disney
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/domain/disney.list
+
+      - name: quixoticheart-netflix
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/domain/netflix.list
+
+  - name: vdo-ipcidr
+    type: ipcidr
+    rulesets:
+      - name: quixoticheart-netflix-ip
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/ipcidr/netflix.list
+
+  - name: ais-us-classical
+    type: classical
+    rulesets:
+      - name: sukka-apple-intelligence
+        url: https://ruleset.skk.moe/Clash/non_ip/apple_intelligence.txt
+
+  - name: ais-domain
+    type: domain
+    rulesets:
+      - name: quixoticheart-ai
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/domain/ai.list
+
+  - name: crp-domain
+    type: domain
+    rulesets:
+      - name: quixoticheart-crypto
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/domain/crypto.list
+    includes:
+      - +.arkm.com
+      - +.cg-capi.com
+      - +.cg-mapi.com
+      - +.coinglass.io
+      - +.treeofalpha.com
+      - +.whale-alert.io
+
+  - name: fnc-domain
+    type: domain
+    rulesets:
+      - name: quixoticheart-paypal
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/domain/paypal.list
+    includes:
+      - +.wise.com
+
+  - name: ecm-domain
+    type: domain
+    rulesets:
+      - name: quixoticheart-ecommerce
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/domain/ecommerce.list
+
+  - name: ecm-ipcidr
+    type: ipcidr
+    rulesets:
+      - name: quixoticheart-ecommerce-ip
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/ipcidr/ecommerce.list
+
+  - name: ggl-us-domain
+    type: domain
+    rules:
+      - voice.google.com
+
+  - name: ggl-domain
+    type: domain
+    rulesets:
+      - name: quixoticheart-googlefcm
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/domain/googlefcm.list
+
+      - name: quixoticheart-google
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/domain/google.list
+
+  - name: ggl-ipcidr
+    type: ipcidr
+    rulesets:
+      - name: quixoticheart-googlefcm-ip
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/ipcidr/googlefcm.list
+
+      - name: quixoticheart-google-ip
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/ipcidr/google.list
+
+  - name: msf-cn-domain
+    type: domain
+    rulesets:
+      - name: quixoticheart-microsoft-cn
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/domain/microsoft-cn.list
+
+  - name: msf-cn-classical
+    type: classical
+    rulesets:
+      - name: sukka-microsoft-cdn
+        url: https://ruleset.skk.moe/Clash/non_ip/microsoft_cdn.txt
+
+  - name: msf-domain
+    type: domain
+    rulesets:
+      - name: quixoticheart-microsoft
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/domain/microsoft.list
+
+  - name: apl-cn-domain
+    type: domain
+    rulesets:
+      - name: quixoticheart-apple-cn
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/domain/apple-cn.list
+
+  - name: apl-domain
+    type: domain
+    rulesets:
+      - name: quixoticheart-apple
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/domain/apple.list
+
+  - name: apl-ipcidr
+    type: ipcidr
+    rulesets:
+      - name: quixoticheart-apple-ip
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/ipcidr/apple.list
+
+  - name: us-domain
+    type: domain
+    rules:
+      - +.nike.com
+      - +.nikecdn.com
+      - +.swoo.sh
+      - +.swoosh.com
+
+  - name: cn-domain
+    type: domain
+    rulesets:
+      - name: dustinwin-cn
+        url: https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/cn.list
+
+  - name: cn-ipcidr
+    type: ipcidr
+    rulesets:
+      - name: dustinwin-cn-ip
+        url: https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/cnip.list
