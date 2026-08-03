@@ -88,6 +88,11 @@ rules:
         - treeofalpha.com
         - whale-alert.io
 
+  - name: ecm
+    rulesets:
+      - name: quixoticheart-ecommerce
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/ecommerce.json
+
   - name: fnc
     rulesets:
       - name: quixoticheart-paypal
@@ -95,11 +100,6 @@ rules:
     includes:
       domain_suffix:
         - wise.com
-
-  - name: ecm
-    rulesets:
-      - name: quixoticheart-ecommerce
-        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/ecommerce.json
 
   - name: ggl-us
     rules:
@@ -116,11 +116,11 @@ rules:
 
   - name: msf-cn
     rulesets:
-      - name: sukka-microsoft-cdn
-        url: https://ruleset.skk.moe/sing-box/non_ip/microsoft_cdn.json
-
       - name: quixoticheart-microsoft-cn
         url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/microsoft-cn.json
+
+      - name: sukka-microsoft-cdn
+        url: https://ruleset.skk.moe/sing-box/non_ip/microsoft_cdn.json
 
   - name: msf
     rulesets:

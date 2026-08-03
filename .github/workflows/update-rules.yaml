@@ -3,7 +3,7 @@ name: Update Rules
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "3 16 * * *"
   push:
     paths:
       - rules/*/manifest.yaml
@@ -19,10 +19,4 @@ jobs:
       - uses: actions/checkout@v7
 
       - run: |
-          for client in mihomo sing-box surge; do
-            bash .github/scripts/build.sh rules "$client"
-          done
-
-          source .github/scripts/build.sh
-
-          sync_changes rules
+            bash .github/scripts/build.sh rules -s

@@ -98,6 +98,12 @@ rules:
       - DOMAIN-SUFFIX,treeofalpha.com
       - DOMAIN-SUFFIX,whale-alert.io
 
+  - name: ecm-classical
+    type: classical
+    rulesets:
+      - name: quixoticheart-ecommerce
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/ecommerce.list
+
   - name: fnc-classical
     type: classical
     rulesets:
@@ -105,12 +111,6 @@ rules:
         url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/paypal.list
     includes:
       - DOMAIN-SUFFIX,wise.com
-
-  - name: ecm-classical
-    type: classical
-    rulesets:
-      - name: quixoticheart-ecommerce
-        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/ecommerce.list
 
   - name: ggl-us-domain
     type: domain
@@ -129,11 +129,11 @@ rules:
   - name: msf-cn-classical
     type: classical
     rulesets:
-      - name: sukka-microsoft-cdn
-        url: https://ruleset.skk.moe/List/non_ip/microsoft_cdn.conf
-
       - name: quixoticheart-microsoft-cn
         url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/surge/microsoft-cn.list
+
+      - name: sukka-microsoft-cdn
+        url: https://ruleset.skk.moe/List/non_ip/microsoft_cdn.conf
 
   - name: msf-classical
     type: classical

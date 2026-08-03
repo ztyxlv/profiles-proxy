@@ -17,8 +17,4 @@ jobs:
       - uses: actions/checkout@v7
 
       - run: |
-          bash .github/scripts/build.sh icons
-
-          source .github/scripts/build.sh
-
-          sync_changes icons
+          bash .github/scripts/build.sh icons -s

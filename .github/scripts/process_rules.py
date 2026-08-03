@@ -2,6 +2,8 @@ import sys
 from pathlib import Path
 import yaml
 import json
+from typing import TextIO
+from datetime import datetime, timezone, timedelta
 
 def generate_text_rules(rule: dict, group_dir: Path):
 
@@ -12,8 +14,8 @@ def generate_text_rules(rule: dict, group_dir: Path):
 
   group_dir.mkdir(parents=True, exist_ok=True)
 
-  write_text_rules(rules, group_dir / f"{rule['name']}.list")
-    
+  write_text_rules(rule["name"], rules, group_dir / f"{rule['name']}.list")
+
 def generate_json_rules(rule: dict, group_dir: Path):
 
   rules = rule.get("rules")
@@ -161,24 +163,41 @@ def normalize_json_rules(json_rules: dict[str, list[str]]) -> dict[str, list[str
 
   return json_rules
 
-def write_text_rules(rules: list[str], file: Path):
+def write_rule_metadata(rule_name: str, rule_count: int, file: TextIO):
+
+  now = datetime.now(timezone(timedelta(hours=8)))
+
+  file.write(
+    f"# Rule Name: {rule_name}\n"
+    f"# Total Rules: {rule_count}\n"
+    f"# Generated At: {now.strftime('%Y-%m-%d %H:%M:%S')} UTC+08:00\n"
+    "\n"
+  )
+
+def write_text_rules(rule_name: str, rules: list[str], file: Path):
 
   with file.open("w", encoding="utf-8") as f:
 
+    write_rule_metadata(rule_name, len(rules), f)
+
     for rule in rules:
+
       f.write(rule + "\n")
 
 class IndentDumper(yaml.SafeDumper):
   def increase_indent(self, flow=False, indentless=False):
     return super().increase_indent(flow=False, indentless=False)
 
-def write_yaml_rules(rules: list[str], file: Path):
+def write_yaml_rules(rule_name: str, rules: list[str], file: Path):
 
   data = {
     "payload": rules
   }
 
   with file.open("w", encoding="utf-8") as f:
+
+    write_rule_metadata(rule_name, len(rules), f)
+
     yaml.dump(
       data,
       f,
@@ -245,13 +264,7 @@ def process_rules(client: str, manifest_f: Path, source_dir: Path, merged_dir: P
 
       text_rules = normalize_text_rules(text_rules)
 
-      if client == "mihomo":
-
-        write_yaml_rules(text_rules, merged_dir / f"{rule_name}.yaml")
-
-      elif client == "surge":
-
-        write_text_rules(text_rules, merged_dir / f"{rule_name}.list")
+      write_text_rules(rule_name, text_rules, merged_dir / f"{rule_name}.list")
 
     elif client == "sing-box":
 

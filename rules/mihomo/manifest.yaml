@@ -125,14 +125,6 @@ rules:
       - +.treeofalpha.com
       - +.whale-alert.io
 
-  - name: fnc-domain
-    type: domain
-    rulesets:
-      - name: quixoticheart-paypal
-        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/domain/paypal.list
-    includes:
-      - +.wise.com
-
   - name: ecm-domain
     type: domain
     rulesets:
@@ -144,6 +136,14 @@ rules:
     rulesets:
       - name: quixoticheart-ecommerce-ip
         url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/ipcidr/ecommerce.list
+
+  - name: fnc-domain
+    type: domain
+    rulesets:
+      - name: quixoticheart-paypal
+        url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/meta/domain/paypal.list
+    includes:
+      - +.wise.com
 
   - name: ggl-us-domain
     type: domain

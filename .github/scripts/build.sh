@@ -135,13 +135,12 @@ compile_mihomo_rules() {
   local compiled_dir="$3"
 
   while IFS=$'\t' read -r name type; do
-    local merged_f="$merged_dir/$name.yaml"
+    local merged_f="$merged_dir/$name.list"
     local compiled_f="$compiled_dir/$name.mrs"
 
     case "$type" in
       domain|ipcidr)
-        [[ -f "$merged_f" ]] || continue
-        mihomo convert-ruleset "$type" yaml "$merged_f" "$compiled_f"
+        mihomo convert-ruleset "$type" text "$merged_f" "$compiled_f"
         ;;
       classical)
         ;;
@@ -158,7 +157,6 @@ compile_singbox_rules() {
     local merged_f="$merged_dir/$name.json"
     local compiled_f="$compiled_dir/$name.srs"
 
-    [[ -f "$merged_f" ]] || continue
     sing-box rule-set compile "$merged_f" -o "$compiled_f"
   done < <(yq -r '.rules[].name' "$manifest_f")
 }
@@ -222,15 +220,48 @@ sync_changes() {
 }
 
 main() {
-  local target="$1"
-  local client="${2:-}"
+  local target=""
+  local client=""
+  local sync=false
+
+  for arg in "$@"; do
+    case "$arg" in
+      icons|rules)
+        target="$arg"
+        ;;
+      mihomo|sing-box|surge)
+        client="$arg"
+        ;;
+      -s|--sync)
+        sync=true
+        ;;
+    esac
+  done
 
   case "$target" in
     icons)
       build_icons
+
+      if [[ "$sync" == true ]]; then
+        sync_changes icons
+      fi
       ;;
     rules)
-      build_rules "$client"
+      if [[ -n "$client" ]]; then
+        build_rules "$client"
+
+        if [[ "$sync" == true ]]; then
+          sync_changes "rules/$client"
+        fi
+      else
+        for c in mihomo sing-box surge; do
+          build_rules "$c"
+        done
+
+        if [[ "$sync" == true ]]; then
+          sync_changes rules
+        fi
+      fi
       ;;
   esac
 }
