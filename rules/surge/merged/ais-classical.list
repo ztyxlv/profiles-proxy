@@ -1,6 +1,6 @@
 # Rule Name: ais-classical
-# Total Rules: 207
-# Generated At: 2026-08-05 01:49:10 UTC+08:00
+# Total Rules: 209
+# Generated At: 2026-08-05 17:51:32 UTC+08:00
 
 DOMAIN,ai.google.dev
 DOMAIN,alkalicore-pa.clients6.google.com
@@ -108,6 +108,8 @@ DOMAIN-SUFFIX,cursor.sh
 DOMAIN-SUFFIX,cursorapi.com
 DOMAIN-SUFFIX,deepmind.com
 DOMAIN-SUFFIX,deepmind.google
+DOMAIN-SUFFIX,deepwiki.com
+DOMAIN-SUFFIX,deepwiki.org
 DOMAIN-SUFFIX,devin.ai
 DOMAIN-SUFFIX,diabrowser.com
 DOMAIN-SUFFIX,diabrowser.engineering

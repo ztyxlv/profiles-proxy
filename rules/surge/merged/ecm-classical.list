@@ -1,6 +1,6 @@
 # Rule Name: ecm-classical
-# Total Rules: 1527
-# Generated At: 2026-08-05 01:49:10 UTC+08:00
+# Total Rules: 1530
+# Generated At: 2026-08-05 17:51:32 UTC+08:00
 
 DOMAIN,api-p.videomarket.jp
 DOMAIN,ecapi-pchome.cdn.hinet.net
@@ -1179,14 +1179,17 @@ DOMAIN-SUFFIX,outletnike.com
 DOMAIN-SUFFIX,ozon-credit.ru
 DOMAIN-SUFFIX,ozon-dostavka.ru
 DOMAIN-SUFFIX,ozon-tech.ru
+DOMAIN-SUFFIX,ozon.app
 DOMAIN-SUFFIX,ozon.by
 DOMAIN-SUFFIX,ozon.com
 DOMAIN-SUFFIX,ozon.com.by
 DOMAIN-SUFFIX,ozon.com.kz
 DOMAIN-SUFFIX,ozon.dev
 DOMAIN-SUFFIX,ozon.express
+DOMAIN-SUFFIX,ozon.global
 DOMAIN-SUFFIX,ozon.kz
 DOMAIN-SUFFIX,ozon.li
+DOMAIN-SUFFIX,ozon.market
 DOMAIN-SUFFIX,ozon.ru
 DOMAIN-SUFFIX,ozon.tech
 DOMAIN-SUFFIX,ozon.tm

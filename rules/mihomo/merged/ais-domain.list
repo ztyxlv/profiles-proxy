@@ -1,6 +1,6 @@
 # Rule Name: ais-domain
-# Total Rules: 199
-# Generated At: 2026-08-05 01:49:04 UTC+08:00
+# Total Rules: 201
+# Generated At: 2026-08-05 17:51:26 UTC+08:00
 
 +.agentclientprotocol.com
 +.ai.azure.com
@@ -59,6 +59,8 @@
 +.cursorapi.com
 +.deepmind.com
 +.deepmind.google
++.deepwiki.com
++.deepwiki.org
 +.devin.ai
 +.diabrowser.com
 +.diabrowser.engineering

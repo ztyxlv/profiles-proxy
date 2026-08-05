@@ -160,7 +160,17 @@
         "fc00::/7",
         "fe80::/10",
         "ff00::/8"
+      ]
+    },
+    {
+      "network": [
+        "udp"
       ],
+      "port": [
+        123
+      ]
+    },
+    {
       "process_name": [
         "localsend_app.exe",
         "qbittorrent.exe"
