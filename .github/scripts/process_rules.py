@@ -368,6 +368,12 @@ def process_rules(client: str, manifest_f: Path, source_dir: Path, merged_dir: P
       global_excludes = global_data.get("excludes", {})
       global_includes = global_data.get("includes", {})
 
+      print(type(global_excludes))
+      print(global_excludes)
+
+      print(type(global_includes))
+      print(global_includes)
+
       type_excludes = global_excludes.get(rule_type, [])
       type_includes = global_includes.get(rule_type, [])
 
