@@ -353,9 +353,6 @@ def process_rules(client: str, manifest_f: Path, source_dir: Path, merged_dir: P
 
   global_data = manifest_d.get("global", {})
 
-  global_excludes = global_data.get("excludes", [])
-  global_includes = global_data.get("includes", [])
-
   for rule in manifest_d.get("rules", []):
 
     rule_name = rule.get("name", "")
@@ -367,6 +364,9 @@ def process_rules(client: str, manifest_f: Path, source_dir: Path, merged_dir: P
       text_rules = extract_text_rules(group_dir)
 
       rule_type = rule.get("type", "")
+
+      global_excludes = global_data.get("excludes", {})
+      global_includes = global_data.get("includes", {})
 
       type_excludes = global_excludes.get(rule_type, [])
       type_includes = global_includes.get(rule_type, [])
@@ -391,6 +391,9 @@ def process_rules(client: str, manifest_f: Path, source_dir: Path, merged_dir: P
       json_rules = extract_json_rules(group_dir)
 
       json_rules = normalize_json_rules(json_rules)
+
+      global_excludes = global_data.get("excludes", [])
+      global_includes = global_data.get("includes", [])
 
       rule_excludes = rule.get("excludes", [])
       rule_includes = rule.get("includes", [])
