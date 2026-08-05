@@ -1,31 +1,70 @@
+# download remote rules --> source_dir
+# generate inline rules --> source_dir
+#         |
+#         v
+# extract_text_rules() --> list[str]
+# extract_yaml_rules() --> list[str]
+# extract_json_rules() +--> normalize_json_rules() --> list[dict[str, Any]
+#         |
+#         v
+# excldue_text_rules() --> list[str]
+# normalize_json_rules(excludes) +--> exclude_json_rules() --> list[dict[str, Any]
+#         |
+#         v
+# incldue_text_rules() --> list[str]
+# normalize_json_rules(includes) +--> include_json_rules() --> list[dict[str, Any]
+#         |
+#         v
+# merge_text_rules() +--> deduplicate & sort --> list[str]
+# merge_json_rules() +--> deduplicate & sort --> list[dict[str, Any]
+#         |
+#         v
+# write_text_rules() --> merged_dir
+# write_yaml_rules() --> merged_dir
+# weire_json_rules() --> merged_dir
+
 import sys
 from pathlib import Path
 import yaml
 import json
+from typing import Any
 from typing import TextIO
 from datetime import datetime, timezone, timedelta
 
-def generate_text_rules(rule: dict, group_dir: Path):
+FIELD_GROUPS = {
+  "domain": "dst-net",
+  "domain_suffix": "dst-net",
+  "domain_keyword": "dst-net",
+  "domain_regex": "dst-net",
+  "geosite": "dst-net",
+  "geoip": "dst-net",
+  "ip_cidr": "dst-net",
+  "ip_is_private": "dst-net",
 
-  rules = rule.get("rules")
+  "port": "dst-port",
+  "port_range": "dst-port",
 
-  if not rules:
-    return
+  "source_geoip": "src-ip",
+  "source_ip_cidr": "src-ip",
+  "source_ip_is_private": "src-ip",
 
-  group_dir.mkdir(parents=True, exist_ok=True)
+  "source_port": "src_port",
+  "source_port_range": "src_port",
 
-  write_text_rules(rule["name"], rules, group_dir / f"{rule['name']}.list")
+  "network": "network"
+}
 
-def generate_json_rules(rule: dict, group_dir: Path):
-
-  rules = rule.get("rules")
-
-  if not rules:
-    return
-
-  group_dir.mkdir(parents=True, exist_ok=True)
-
-  write_json_rules(rules, group_dir / f"{rule['name']}.json")
+SCALAR_FIELDS = {
+  "ip_version",
+  "source_ip_is_private",
+  "ip_is_private",
+  "clash_mode",
+  "network_is_expensive",
+  "network_is_constrained",
+  "invert",
+  "action",
+  "outbound"
+}
 
 def extract_text_rules(group_dir: Path) -> list[str]:
 
@@ -34,7 +73,6 @@ def extract_text_rules(group_dir: Path) -> list[str]:
   for rule_f in group_dir.iterdir():
 
     if rule_f.suffix in [".list", ".conf", ".txt"]:
-
       with rule_f.open("r", encoding="utf-8") as f:
 
         for line in f:
@@ -49,38 +87,12 @@ def extract_text_rules(group_dir: Path) -> list[str]:
     elif rule_f.suffix == ".yaml":
 
       with rule_f.open("r", encoding="utf-8") as f:
-
         data = yaml.safe_load(f)
 
       for item in data.get("payload", []):
-
         text_rules.append(item)
 
   return text_rules
-
-def extract_json_rules(group_dir: Path) -> dict[str, list[str]]:
-
-  json_rules = {}
-
-  for json_f in group_dir.iterdir():
-
-    if json_f.suffix == ".json":
-
-      with json_f.open("r", encoding="utf-8") as f:
-
-        data = json.load(f)
-
-      for item in data.get("rules", []):
-
-        for key, values in item.items():
-
-          if key not in json_rules:
-
-            json_rules[key] = []
-
-          json_rules[key].extend(values)
-
-  return json_rules
 
 def merge_list(first: list[str], second: list[str]) -> list[str]:
 
@@ -114,69 +126,151 @@ def include_text_rules(text_rules: list[str], includes: list[str]) -> list[str]:
 
   return text_rules + includes
 
-def exclude_json_rules(json_rules: dict[str, list[str]], excludes: dict[str, list[str]]) -> dict[str, list[str]]:
-
-  if not excludes:
-    return json_rules
-
-  result = {}
-
-  exclude_sets = {key: set(values) for key, values in excludes.items()}
-
-  for key, values in json_rules.items():
-
-    if key not in exclude_sets:
-      result[key] = values
-      continue
-
-    remaining = [value for value in values if value not in exclude_sets[key]]
-
-    if remaining:
-      result[key] = remaining
-
-  return result
-
-def include_json_rules(json_rules: dict[str, list[str]], includes: dict[str, list[str]]) -> dict[str, list[str]]:
-
-  if not includes:
-    return json_rules
-
-  for key, values in includes.items():
-
-    if key not in json_rules:
-
-      json_rules[key] = []
-
-    json_rules[key].extend(values)
-
-  return json_rules
-
 def normalize_text_rules(text_rules: list[str]) -> list[str]:
 
   return sorted(set(text_rules))
 
-def normalize_json_rules(json_rules: dict[str, list[str]]) -> dict[str, list[str]]:
+def extract_json_rules(group_dir: Path) -> list[dict[str, Any]]:
 
-  for key, values in json_rules.items():
+  json_rules = []
 
-    json_rules[key] = sorted(set(values))
+  for rule_f in group_dir.glob("*.json"):
+
+    with rule_f.open("r", encoding="utf-8") as f:
+      data = json.load(f)
+
+    json_rules.extend(data.get("rules", []))
 
   return json_rules
 
-def write_rule_metadata(rule_name: str, rule_count: int, file: TextIO):
+def normalize_json_rules(rules: list[dict[str, Any]]) -> list[dict[str, Any]]:
+
+  result = []
+
+  for rule in rules:
+
+    new_rule = {}
+
+    for key, value in rule.items():
+
+      if key in SCALAR_FIELDS:
+          new_rule[key] = value
+      else:
+          new_rule[key] = value if isinstance(value, list) else [value]
+
+    result.append(new_rule)
+
+  return result
+
+def get_rule_signature(rule: dict[str, Any]) -> tuple[str, ...]:
+
+  return tuple(sorted({FIELD_GROUPS.get(field, field) for field in rule}))
+
+def exclude_json_rules(rules: list[dict], excludes: list[dict]) -> list[dict]:
+
+  if not excludes:
+    return rules
+
+  prepared_excludes = [
+    (
+      get_rule_signature(exclude),
+      {
+        key: set(values)
+        for key, values in exclude.items()
+      }
+    )
+    for exclude in excludes
+  ]
+
+  result = []
+
+  for rule in rules:
+
+    new_rule = {key: list(values) for key, values in rule.items()}
+
+    rule_signature = get_rule_signature(rule)
+
+    for exclude_signature, exclude_values in prepared_excludes:
+
+      if rule_signature != exclude_signature:
+        continue
+
+      for key, values in exclude_values.items():
+
+        if key not in new_rule:
+          continue
+
+        new_rule[key] = [value for value in new_rule[key] if value not in values]
+
+        if not new_rule[key]:
+          del new_rule[key]
+
+    if new_rule:
+      result.append(new_rule)
+
+  return result
+
+def include_json_rules(rules: list[dict], includes: list[dict]) -> list[dict]:
+
+  if not includes:
+    return rules
+
+  return rules + includes
+
+def merge_json_rules(json_rules: list[dict]) -> list[dict]:
+
+  merged = {}
+
+  for rule in json_rules:
+
+    signature = get_rule_signature(rule)
+
+    if signature not in merged:
+
+      merged[signature] = {key: list(value) if isinstance(value, list) else value for key, value in rule.items()}
+
+      continue
+
+    target = merged[signature]
+
+    for key, value in rule.items():
+
+      if key not in target:
+
+        target[key] = value
+
+      elif isinstance(value, list):
+
+        target[key].extend(value)
+
+      elif target[key] != value:
+
+        target[key] = value
+
+  for rule in merged.values():
+
+    for key, value in rule.items():
+
+      if isinstance(value, list):
+
+        rule[key] = sorted(set(value))
+
+  return list(merged.values())
+
+def write_rule_metadata(rule_name: str, rule_count: int, output_f: TextIO):
 
   now = datetime.now(timezone(timedelta(hours=8)))
 
-  file.write(
+  output_f.write(
     f"# Rule Name: {rule_name}\n"
     f"# Total Rules: {rule_count}\n"
     f"# Generated At: {now.strftime('%Y-%m-%d %H:%M:%S')} UTC+08:00\n"
     "\n"
   )
 
-def write_text_rules(rule_name: str, rules: list[str], file: Path):
+def write_text_rules(rule_name: str, rules: list[str], output_f: Path):
 
-  with file.open("w", encoding="utf-8") as f:
+  with output_f.open("w", encoding="utf-8") as f:
 
     write_rule_metadata(rule_name, len(rules), f)
 
@@ -207,16 +301,14 @@ def write_yaml_rules(rule_name: str, rules: list[str], file: Path):
       indent=2
     )
 
-def write_json_rules(rules: dict[str, list[str]], file: Path):
+def write_json_rules(rules: list[dict[str, Any]], output_f: Path):
 
   data = {
     "version": 5,
-    "rules": [
-      rules
-    ]
+    "rules": rules
   }
 
-  with file.open("w", encoding="utf-8") as f:
+  with output_f.open("w", encoding="utf-8") as f:
 
     json.dump(
       data,
@@ -225,26 +317,52 @@ def write_json_rules(rules: dict[str, list[str]], file: Path):
       indent=2
     )
 
+def generate_rules(client: str, manifest_f: Path, source_dir: Path):
+
+  with manifest_f.open("r", encoding="utf-8") as f:
+    manifest_d = yaml.safe_load(f) 
+
+  for rule in manifest_d.get("rules", []):
+    rule_name = rule.get("name")
+    rules = rule.get("rules")
+
+    if not rules:
+      continue
+
+    if client in ["mihomo", "surge"]:
+
+      output_f = source_dir / rule_name / f"{rule_name}.list"
+
+      output_f.parent.mkdir(parents=True, exist_ok=True)
+
+      write_text_rules(rule_name, rules, output_f)
+
+    elif client == "sing-box":
+
+      output_f = source_dir / rule_name / f"{rule_name}.json"
+
+      output_f.parent.mkdir(parents=True, exist_ok=True)
+
+      write_json_rules(rules, output_f)
+
 def process_rules(client: str, manifest_f: Path, source_dir: Path, merged_dir: Path):
 
   with manifest_f.open("r", encoding="utf-8") as f:
 
-    manifest_data = yaml.safe_load(f)
+    manifest_d = yaml.safe_load(f)
 
-  global_data = manifest_data.get("global", {})
+  global_data = manifest_d.get("global", {})
 
-  global_excludes = global_data.get("excludes", {})
-  global_includes = global_data.get("includes", {})
+  global_excludes = global_data.get("excludes", [])
+  global_includes = global_data.get("includes", [])
 
-  for rule in manifest_data.get("rules", []):
+  for rule in manifest_d.get("rules", []):
 
     rule_name = rule.get("name", "")
 
     group_dir = (source_dir / rule_name)
 
     if client in ["mihomo", "surge"]:
-
-      generate_text_rules(rule, group_dir)
 
       text_rules = extract_text_rules(group_dir)
 
@@ -264,26 +382,33 @@ def process_rules(client: str, manifest_f: Path, source_dir: Path, merged_dir: P
 
       text_rules = normalize_text_rules(text_rules)
 
-      write_text_rules(rule_name, text_rules, merged_dir / f"{rule_name}.list")
+      output_f = merged_dir / f"{rule_name}.list"
+
+      write_text_rules(rule_name, text_rules, output_f)
 
     elif client == "sing-box":
 
-      generate_json_rules(rule, group_dir)
-
       json_rules = extract_json_rules(group_dir)
 
-      rule_excludes = rule.get("excludes", {})
-      rule_includes = rule.get("includes", {})
+      json_rules = normalize_json_rules(json_rules)
 
-      excludes = merge_dict(global_excludes, rule_excludes)
-      includes = merge_dict(global_includes, rule_includes)
+      rule_excludes = rule.get("excludes", [])
+      rule_includes = rule.get("includes", [])
+
+      excludes = global_excludes + rule_excludes
+      includes = global_includes + rule_includes
+
+      excludes = normalize_json_rules(excludes)
+      includes = normalize_json_rules(includes)
 
       json_rules = exclude_json_rules(json_rules, excludes)
       json_rules = include_json_rules(json_rules, includes)
 
-      json_rules = normalize_json_rules(json_rules)
+      json_rules = merge_json_rules(json_rules)
 
-      write_json_rules(json_rules, merged_dir / f"{rule_name}.json")
+      output_f = merged_dir / f"{rule_name}.json"
+
+      write_json_rules(json_rules, output_f)
 
 def main():
 
@@ -293,6 +418,7 @@ def main():
   source_dir = Path(sys.argv[3])
   merged_dir = Path(sys.argv[4])
 
+  generate_rules(client, manifest_f, source_dir)
   process_rules(client, manifest_f, source_dir, merged_dir)
 
 if __name__ == "__main__":
