@@ -1,7 +1,8 @@
 # Rule Name: msf-cn-classical
-# Total Rules: 241
-# Generated At: 2026-08-05 17:51:32 UTC+08:00
+# Total Rules: 242
+# Generated At: 2026-08-06 01:38:15 UTC+08:00
 
+DOMAIN,7h15.ru1353t.1s.m4d3.by.5ukk4w.skk.moe
 DOMAIN,azuremigrate.download.prss.microsoft.com
 DOMAIN,azuremigratetest.download.prss.microsoft.com
 DOMAIN,azurestackhub.download.prss.microsoft.com

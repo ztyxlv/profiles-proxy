@@ -2,6 +2,26 @@
   "version": 5,
   "rules": [
     {
+      "domain": [
+        "7h15.ru1353t.1s.m4d3.by.5ukk4w.skk.moe"
+      ],
+      "domain_suffix": [
+        "7h15.ru1353t.1s.m4d3.by.5ukk4w.skk.moe",
+        "cdn-telegram.org",
+        "graph.org",
+        "legra.ph",
+        "t.me",
+        "tdesktop.com",
+        "telega.one",
+        "telegra.ph",
+        "telegram.dog",
+        "telegram.me",
+        "telegram.org",
+        "telegram.space",
+        "telesco.pe",
+        "tg.dev",
+        "tx.me"
+      ],
       "ip_cidr": [
         "139.59.210.98/32",
         "149.154.160.0/20",
@@ -18,22 +38,6 @@
         "91.108.56.0/22",
         "91.108.8.0/21",
         "95.161.64.0/20"
-      ],
-      "domain_suffix": [
-        "cdn-telegram.org",
-        "graph.org",
-        "legra.ph",
-        "t.me",
-        "tdesktop.com",
-        "telega.one",
-        "telegra.ph",
-        "telegram.dog",
-        "telegram.me",
-        "telegram.org",
-        "telegram.space",
-        "telesco.pe",
-        "tg.dev",
-        "tx.me"
       ]
     }
   ]
