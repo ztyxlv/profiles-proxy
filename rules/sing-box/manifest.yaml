@@ -1,10 +1,10 @@
 global:
   excludes:
-    domain:
-      - "*"
-      - 7h15_ru1353t_1s_m4d3_by_5ukk4w.skk.moe
-    domain_suffix:
-      - 7h15_ru1353t_1s_m4d3_by_5ukk4w.skk.moe
+    - domain:
+        - "*"
+        - 7h15_ru1353t_1s_m4d3_by_5ukk4w.skk.moe
+      domain_suffix:
+        - 7h15_ru1353t_1s_m4d3_by_5ukk4w.skk.moe
 
 rules:
   - name: real-ip
@@ -17,9 +17,12 @@ rules:
       - name: quixoticHeart-private
         url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/private.json
     includes:
-      process_name:
-        - localsend_app.exe
-        - qbittorrent.exe
+      - network: udp
+        port: 123
+
+      - process_name:
+          - localsend_app.exe
+          - qbittorrent.exe
 
   - name: yt
     rulesets:
@@ -80,13 +83,13 @@ rules:
       - name: quixoticheart-crypto
         url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/crypto.json
     includes:
-      domain_suffix:
-        - arkm.com
-        - cg-capi.com
-        - cg-mapi.com
-        - coinglass.io
-        - treeofalpha.com
-        - whale-alert.io
+      - domain_suffix:
+          - arkm.com
+          - cg-capi.com
+          - cg-mapi.com
+          - coinglass.io
+          - treeofalpha.com
+          - whale-alert.io
 
   - name: ecm
     rulesets:
@@ -98,13 +101,13 @@ rules:
       - name: quixoticheart-paypal
         url: https://raw.githubusercontent.com/QuixoticHeart/rule-set/refs/heads/ruleset/singbox/version5/paypal.json
     includes:
-      domain_suffix:
-        - wise.com
+      - domain_suffix:
+          - wise.com
 
   - name: ggl-us
     rules:
-      domain:
-        - voice.google.com
+      - domain:
+          - voice.google.com
 
   - name: ggl
     rulesets:
@@ -139,11 +142,11 @@ rules:
 
   - name: us
     rules:
-      domain_suffix:
-        - nike.com
-        - nikecdn.com
-        - swoo.sh
-        - swoosh.com
+      - domain_suffix:
+          - nike.com
+          - nikecdn.com
+          - swoo.sh
+          - swoosh.com
 
   - name: cn
     rulesets:
