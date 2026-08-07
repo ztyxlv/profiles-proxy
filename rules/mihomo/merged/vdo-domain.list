@@ -1,7 +1,9 @@
 # Rule Name: vdo-domain
-# Total Rules: 204
-# Generated At: 2026-08-06 01:38:08 UTC+08:00
+# Total Rules: 266
+# Generated At: 2026-08-08 00:54:51 UTC+08:00
 
++.112263.com
++.20thcenturystudios.com
 +.20thcenturystudios.com.au
 +.20thcenturystudios.com.br
 +.20thcenturystudios.jp
@@ -15,12 +17,15 @@
 +.babyzone.com
 +.bam.nr-data.net
 +.bamgrid.com
++.bamtech.net
 +.beautyandthebeastmusical.co.uk
 +.braze.com
++.callhulu.com
 +.cdn.optimizely.com
 +.conviva.com
 +.cookielaw.org
 +.d9.flashtalking.com
++.detpress.com
 +.dilcdn.com
 +.disney-asia.com
 +.disney-discount.com
@@ -68,7 +73,9 @@
 +.disney.ru
 +.disney.se
 +.disney.sg
++.disneyaccount.com
 +.disneyadsales.com
++.disneyanimation.com
 +.disneyarena.com
 +.disneyaulani.com
 +.disneybaby.com
@@ -133,15 +140,58 @@
 +.espnqa.com
 +.execute-api.us-east-1.amazonaws.com
 +.fast.com
++.findyourlimits.com
 +.flxvpn.net
++.freeform.com
++.freehulu.com
++.fxnetwork.com
++.fxnetworks.com
 +.go-disneyworldgo.com
 +.go.com
++.hongkongdisneyland.com
++.hooloo.tv
++.hoolu.com
++.hoolu.tv
 +.hotstar-cdn.net
 +.hotstar-labs.com
 +.hotstar.com
 +.hotstarext.com
 +.hsprepack.akamaized.net
++.hu1u.com
++.huloo.cc
++.huloo.tv
++.hulu.com
++.hulu.jp
++.hulu.tv
++.hulu.us
++.huluaction.com
++.huluad.com
++.huluapp.com
++.huluasks.com
++.hulucall.com
++.hulufree.com
++.hulugans.com
++.hulugermany.com
++.hulugo.com
++.huluim.com
++.huluinstantmessenger.com
++.huluitaly.com
++.hulunet.com
++.hulunetwork.com
++.huluplus.com
++.hulupremium.com
++.hulupurchase.com
++.huluqa.com
++.hulurussia.com
++.huluspain.com
++.hulusports.com
++.hulustream.com
++.huluteam.com
++.hulutv.com
++.huluusa.com
++.joinmaidez.com
 +.js-agent.newrelic.com
++.lucasfilm.com
 +.marvel.com
 +.marvel10thanniversary.com
 +.marveldimensionofheroes.com
@@ -153,6 +203,8 @@
 +.marvelsuperwar.com
 +.mickey.tv
 +.moviesanywhere.com
++.mushymush.tv
++.myhulu.com
 +.natgeomaps.com
 +.nationalgeographic.com
 +.nationalgeographicpartners.com
@@ -184,7 +236,13 @@
 +.ngeo.com
 +.nomadlandmovie.ch
 +.onetrust.com
++.originalhulu.com
++.payhulu.com
++.pixar.com
 +.playmation.com
++.registerhulu.com
++.searchlightpictures.com
++.shanghaidisneyresort.com
 +.shopdisney.com
 +.shops-disney.com
 +.sorcerersarena.com
@@ -197,12 +255,16 @@
 +.starwarsgalacticstarcruiser.com
 +.starwarskids.com
 +.streamingdisney.net
++.thehulubraintrust.com
 +.themarvelexperiencetour.com
 +.thestationbymaker.com
 +.thewaltdisneycompany.com
 +.thisispolaris.com
++.tokyodisneyresort.jp
 +.us-west-2.amazonaws.com
++.waltdisneystudios.com
 +.watchdisneyfe.com
 +.watchespn.com
++.wwwhuluplus.com
 e13252.dscg.akamaiedge.net
 h-netflix.online-metrix.net

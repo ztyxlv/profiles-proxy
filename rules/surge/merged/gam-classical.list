@@ -1,6 +1,6 @@
 # Rule Name: gam-classical
-# Total Rules: 986
-# Generated At: 2026-08-06 01:38:15 UTC+08:00
+# Total Rules: 987
+# Generated At: 2026-08-08 00:54:59 UTC+08:00
 
 DOMAIN,a.ppy.sh
 DOMAIN,a4e8s8k3.map2.ssl.hwcdn.net
@@ -107,6 +107,7 @@ DOMAIN-SUFFIX,arcraiders.com
 DOMAIN-SUFFIX,arma3.com
 DOMAIN-SUFFIX,armaplatform.com
 DOMAIN-SUFFIX,artstation.com
+DOMAIN-SUFFIX,artstationmedia.com
 DOMAIN-SUFFIX,artstorm.com
 DOMAIN-SUFFIX,asobostudio.com
 DOMAIN-SUFFIX,avatargarenanow-a.akamaihd.net

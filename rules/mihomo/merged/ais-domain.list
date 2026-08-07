@@ -1,6 +1,6 @@
 # Rule Name: ais-domain
-# Total Rules: 201
-# Generated At: 2026-08-06 01:38:08 UTC+08:00
+# Total Rules: 202
+# Generated At: 2026-08-08 00:54:51 UTC+08:00
 
 +.agentclientprotocol.com
 +.ai.azure.com
@@ -162,6 +162,7 @@
 +.youmind.com
 +.youmind.site
 +.zed.dev
+7h15.ru1353t.1s.m4d3.by.5ukk4w.skk.moe
 ai.google.dev
 alkalicore-pa.clients6.google.com
 alkalimakersuite-pa.clients6.google.com
