@@ -1,6 +1,6 @@
 # Rule Name: gam-classical
-# Total Rules: 1016
-# Generated At: 2026-08-14 00:56:11 UTC+08:00
+# Total Rules: 1017
+# Generated At: 2026-08-15 00:53:35 UTC+08:00
 
 DOMAIN,a.ppy.sh
 DOMAIN,a4e8s8k3.map2.ssl.hwcdn.net
@@ -727,6 +727,7 @@ DOMAIN-SUFFIX,rockstargames.com
 DOMAIN-SUFFIX,rockstarnorth.com
 DOMAIN-SUFFIX,rowblocks.com
 DOMAIN-SUFFIX,rowblox.com
+DOMAIN-SUFFIX,rsg.ms
 DOMAIN-SUFFIX,rsg.sc
 DOMAIN-SUFFIX,rstatic.net
 DOMAIN-SUFFIX,ruinedking.com
