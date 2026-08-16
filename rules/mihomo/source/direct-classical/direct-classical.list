@@ -1,6 +1,6 @@
 # Rule Name: direct-classical
 # Total Rules: 2
-# Generated At: 2026-08-16 00:24:26 UTC+08:00
+# Generated At: 2026-08-17 00:25:32 UTC+08:00
 
 PROCESS-NAME,localsend_app.exe
 PROCESS-NAME,qbittorrent.exe
