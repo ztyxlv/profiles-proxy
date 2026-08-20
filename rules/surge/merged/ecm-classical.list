@@ -1,6 +1,6 @@
 # Rule Name: ecm-classical
-# Total Rules: 1530
-# Generated At: 2026-08-20 00:32:02 UTC+08:00
+# Total Rules: 1531
+# Generated At: 2026-08-21 00:35:27 UTC+08:00
 
 DOMAIN,api-p.videomarket.jp
 DOMAIN,ecapi-pchome.cdn.hinet.net
@@ -285,6 +285,7 @@ DOMAIN-SUFFIX,amazontrust.com
 DOMAIN-SUFFIX,amazonuniversity.jobs
 DOMAIN-SUFFIX,amazonvideodirect.com
 DOMAIN-SUFFIX,amazonwebservices.cn
+DOMAIN-SUFFIX,amazonwebservices.com
 DOMAIN-SUFFIX,amazonwebservices.com.cn
 DOMAIN-SUFFIX,amazonworkdocs.cn
 DOMAIN-SUFFIX,amazonworkdocs.com
