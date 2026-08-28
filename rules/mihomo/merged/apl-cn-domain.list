@@ -1,6 +1,6 @@
 # Rule Name: apl-cn-domain
-# Total Rules: 169
-# Generated At: 2026-08-27 00:48:40 UTC+08:00
+# Total Rules: 170
+# Generated At: 2026-08-28 08:45:56 UTC+08:00
 
 +.a1.mzstatic.com
 +.a2.mzstatic.com
@@ -70,6 +70,7 @@
 +.gsp4-cn.ls.apple.com.edgekey.net.globalredir.akadns.net
 +.gsp5-cn.ls.apple.com
 +.gsp85-cn-ssl.ls.apple.com
++.gspe11-2-cn-ssl.ls.apple.com
 +.gspe19-2-cn-ssl.ls-apple.com.akadns.net
 +.gspe19-2-cn-ssl.ls.apple.com
 +.gspe19-cn-ssl.ls.apple.com
