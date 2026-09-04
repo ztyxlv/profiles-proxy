@@ -2,10 +2,6 @@
   "version": 5,
   "rules": [
     {
-      "domain": [
-        "e13252.dscg.akamaiedge.net",
-        "h-netflix.online-metrix.net"
-      ],
       "domain_suffix": [
         "112263.com",
         "20thcenturystudios.com",
@@ -272,18 +268,22 @@
         "watchespn.com",
         "wwwhuluplus.com"
       ],
-      "domain_keyword": [
-        "apiproxy-device-prod-nlb-",
-        "dualstack.apiproxy-",
-        "dualstack.ichnaea-web-",
-        "netflixdnstest"
-      ],
       "domain_regex": [
         "(^|\\.)apiproxy-device-prod-nlb-.+\\.amazonaws\\.com$",
         "(^|\\.)apiproxy-website-nlb-prod-.+\\.amazonaws\\.com$",
         "(^|\\.)dualstack\\.apiproxy-.+\\.amazonaws\\.com$",
         "(^|\\.)dualstack\\.ichnaea-web-.+\\.amazonaws\\.com$",
         "^hses[1-7]?\\.akamaized\\.net$"
+      ],
+      "domain": [
+        "e13252.dscg.akamaiedge.net",
+        "h-netflix.online-metrix.net"
+      ],
+      "domain_keyword": [
+        "apiproxy-device-prod-nlb-",
+        "dualstack.apiproxy-",
+        "dualstack.ichnaea-web-",
+        "netflixdnstest"
       ],
       "ip_cidr": [
         "103.87.204.0/22",
